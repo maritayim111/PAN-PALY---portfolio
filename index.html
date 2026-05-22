@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAN PALY - Portfolio</title>
+<link rel="icon" type="image/png" href="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --cream: #f8f4ef;
+  --warm-white: #fdfaf7;
+  --charcoal: #1a1814;
+  --dark: #2d2a25;
+  --mid: #6b6560;
+  --light: #a09890;
+  --accent: #EDA311;
+  --accent-light: #f3d889;
+  --accent-dark: #b57b0d;
+  --rose: #d4847a;
+  --teal: #4a8a82;
+  --border: rgba(26,24,20,0.1);
+  --shadow-sm: 0 2px 12px rgba(26,24,20,0.08);
+  --shadow-md: 0 8px 32px rgba(26,24,20,0.12);
+  --shadow-lg: 0 20px 60px rgba(26,24,20,0.16);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --nav-h: 72px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+h3 { font-size: 1.4rem; }
+p { color: var(--mid); }
+a { text-decoration: none; color: inherit; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ===== UTILITY ===== */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.section { padding: 100px 0; }
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent);
+}
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: rgba(200,145,74,0.12);
+  color: var(--accent-dark);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  background: rgba(253,250,247,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--charcoal);
+}
+.logo span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--mid);
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover { color: var(--charcoal); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-cta {
+  background: var(--charcoal);
+  color: var(--warm-white) !important;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.85rem !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--accent) !important; }
+.nav-cta::after { display: none !important; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--warm-white);
+  padding: 1.5rem 2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  box-shadow: var(--shadow-md);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.mobile-menu a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mid);
+  display: block;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-h);
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+/* Decorative circles */
+#hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,145,74,0.12) 0%, transparent 70%);
+  top: -100px; right: -150px;
+  pointer-events: none;
+}
+#hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,138,130,0.1) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+.hero-eyebrow-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+.hero-title {
+  margin-bottom: 1.5rem;
+  color: var(--charcoal);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--mid);
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--charcoal);
+  color: var(--warm-white);
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover::before { transform: scaleX(1); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--charcoal);
+  color: var(--charcoal);
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: var(--charcoal);
+  color: var(--warm-white);
+}
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  display: block;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-img-wrap {
+  width: 420px;
+  height: 520px;
+  border-radius: 200px 200px 180px 180px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, var(--accent-light) 0%, #d4a870 50%, var(--accent) 100%);
+  box-shadow: var(--shadow-lg);
+}
+.hero-img-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-top: 3rem;
+}
+.hero-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.hero-badge {
+  position: absolute;
+  background: var(--warm-white);
+  border-radius: var(--radius);
+  padding: 1rem 1.4rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-badge-1 { bottom: 80px; left: -40px; }
+.hero-badge-2 { top: 80px; right: -30px; }
+.badge-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.badge-icon.gold { background: rgba(200,145,74,0.15); }
+.badge-icon.teal { background: rgba(74,138,130,0.15); }
+.badge-text-main { font-weight: 700; font-size: 1rem; color: var(--charcoal); display: block; }
+.badge-text-sub { font-size: 0.75rem; color: var(--light); }
+.hero-ring {
+  position: absolute;
+  width: 480px; height: 580px;
+  border-radius: 240px 240px 210px 210px;
+  border: 2px dashed rgba(200,145,74,0.25);
+  top: -30px; left: 50%; transform: translateX(-50%);
+  animation: spin-slow 30s linear infinite;
+  pointer-events: none;
+}
+@keyframes spin-slow { to { transform: translateX(-50%) rotate(360deg); } }
+
+/* ===== ABOUT ===== */
+#about { background: var(--warm-white); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.about-img-col { position: relative; }
+.about-img-frame {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 120px 120px 60px 60px;
+  background: linear-gradient(160deg, #e8c090 0%, var(--accent) 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.about-img-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.about-img-pattern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-img-label {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 120px; height: 120px;
+  background: var(--charcoal);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--warm-white);
+  box-shadow: var(--shadow-md);
+}
+.about-img-label .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.about-img-label .txt {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.7;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.about-content h2 { margin-bottom: 1.5rem; }
+.about-content p { margin-bottom: 1.2rem; line-height: 1.9; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+.about-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid var(--border);
+}
+.about-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+.about-card h4 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+.about-card p { font-size: 0.9rem; margin: 0; }
+
+/* ===== SERVICES ===== */
+#services { background: var(--cream); }
+.services-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+.services-intro p { max-width: 420px; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.service-card {
+  background: var(--warm-white);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--charcoal) 0%, #3d3830 100%);
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+  z-index: 0;
+}
+.service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.service-card:hover::before { transform: translateY(0); }
+.service-card:hover .service-icon { background: rgba(200,145,74,0.2); }
+.service-card:hover h3,
+.service-card:hover p,
+.service-card:hover .service-num { color: var(--warm-white); }
+.service-card > * { position: relative; z-index: 1; }
+.service-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: rgba(200,145,74,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.4s;
+}
+.service-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.4s;
+}
+.service-card p { font-size: 0.9rem; line-height: 1.7; transition: color 0.4s; }
+.service-num {
+  position: absolute;
+  top: 1.5rem; right: 1.8rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(26,24,20,0.05);
+  line-height: 1;
+  transition: color 0.4s;
+  z-index: 1;
+}
+
+/* ===== PROJECTS ===== */
+#projects { background: var(--warm-white); }
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.project-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+}
+.project-card:first-child {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+.project-bg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.5s ease;
+}
+.project-card:hover .project-bg { transform: scale(1.05); }
+.proj-1 { background: linear-gradient(135deg, #1a1814 0%, #3d3830 50%, var(--accent-dark) 100%); }
+.proj-2 { background: linear-gradient(135deg, #2a4a46 0%, var(--teal) 100%); }
+.proj-3 { background: linear-gradient(135deg, #4a2a2a 0%, var(--rose) 100%); }
+.proj-4 { background: linear-gradient(135deg, #2a3a4a 0%, #4a7a9a 100%); }
+.proj-5 { background: linear-gradient(135deg, #3a2a1a 0%, var(--accent) 100%); }
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,24,20,0.9) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.8rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.project-card:hover .project-overlay { opacity: 1; }
+.project-overlay h3 {
+  color: var(--warm-white);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.project-overlay p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.project-tag {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  background: rgba(200,145,74,0.9);
+  color: var(--warm-white);
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+/* Decorative inside project bg */
+.project-deco {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.08);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.project-deco-2 {
+  position: absolute;
+  width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.12);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Ensure any image inside project-deco fits the decorative container */
+.project-deco img,
+.project-deco .project-deco-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+.project-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+/* ===== SKILLS ===== */
+#skills { background: var(--charcoal); }
+#skills .section-label { color: var(--accent-light); }
+#skills .section-label::before { background: var(--accent-light); }
+#skills h2 { color: var(--warm-white); }
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.skills-desc p { color: rgba(253,250,247,0.6); line-height: 1.9; }
+.skills-desc .btn-primary {
+  background: var(--accent);
+  margin-top: 2rem;
+  display: inline-flex;
+}
+.skills-desc .btn-primary::before { background: var(--warm-white); }
+.skills-list { display: flex; flex-direction: column; gap: 1.8rem; }
+.skill-item {}
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.skill-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--warm-white);
+}
+.skill-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.skill-track {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  position: relative;
+  width: 0;
+  animation: fillbar 1.5s ease forwards;
+}
+@keyframes fillbar { to { width: var(--w); } }
+.skill-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.skill-card-tag {
+  background: rgba(253,250,247,0.06);
+  border: 1px solid rgba(253,250,247,0.12);
+  color: rgba(253,250,247,0.7);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.skill-card-tag:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--warm-white);
+}
+
+/* ===== VIDEO EDITING ===== */
+#video { background: var(--cream); }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.video-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+.video-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.video-thumb {
+  aspect-ratio: 16/9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.vt-1 { background: linear-gradient(135deg, #1a1814 0%, #4a3828 100%); }
+.vt-2 { background: linear-gradient(135deg, #1a2a2a 0%, #2a5a55 100%); }
+.vt-3 { background: linear-gradient(135deg, #2a1a2a 0%, #5a3a6a 100%); }
+.vt-4 { background: linear-gradient(135deg, #2a1a1a 0%, #7a3a3a 100%); }
+.vt-5 { background: linear-gradient(135deg, #1a2a1a 0%, #3a6a3a 100%); }
+.vt-6 { background: linear-gradient(135deg, #2a2a1a 0%, #6a6a2a 100%); }
+.video-play {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.video-card:hover .video-play {
+  background: var(--accent);
+  transform: scale(1.1);
+}
+.video-deco {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255,255,255,0.02) 10px,
+    rgba(255,255,255,0.02) 11px
+  );
+}
+.video-label {
+  position: absolute;
+  bottom: 0.8rem; left: 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  background: rgba(26,24,20,0.5);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+.video-info { padding: 1.2rem 1.4rem; }
+.video-info h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.3rem;
+}
+.video-info p { font-size: 0.85rem; margin: 0; }
+
+/* ===== TESTIMONIALS ===== */
+#testimonials { background: var(--warm-white); }
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.testi-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.3s ease;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.testi-card.featured {
+  background: var(--charcoal);
+  border-color: transparent;
+}
+.testi-card.featured p,
+.testi-card.featured .testi-name { color: var(--warm-white); }
+.testi-card.featured .testi-role { color: rgba(253,250,247,0.5); }
+.testi-card.featured .quote-mark { color: var(--accent); }
+.quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  line-height: 0.5;
+  color: var(--accent);
+  opacity: 0.4;
+  margin-bottom: 1rem;
+}
+.testi-card p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.testi-footer { display: flex; align-items: center; gap: 1rem; }
+.testi-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.av-1 { background: linear-gradient(135deg, var(--accent-light), var(--accent)); }
+.av-2 { background: linear-gradient(135deg, #a0d0cc, var(--teal)); }
+.av-3 { background: linear-gradient(135deg, #d0a0a0, var(--rose)); }
+.testi-name { font-weight: 700; font-size: 0.95rem; display: block; }
+.testi-role { font-size: 0.8rem; color: var(--light); }
+.stars { color: var(--accent); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+
+/* ===== CONTACT ===== */
+#contact { background: var(--cream); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+.contact-info h2 { margin-bottom: 1.2rem; }
+.contact-info > p { margin-bottom: 2.5rem; }
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.contact-icon {
+  width: 48px; height: 48px;
+  background: var(--warm-white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.contact-detail-text strong { display: block; font-size: 0.85rem; color: var(--charcoal); }
+.contact-detail-text span { font-size: 0.9rem; color: var(--mid); }
+.social-links { display: flex; gap: 0.8rem; margin-top: 2.5rem; }
+.social-btn {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--mid);
+  box-shadow: var(--shadow-sm);
+}
+.social-btn:hover { background: var(--charcoal); color: var(--warm-white); transform: translateY(-3px); }
+.contact-form-wrap {
+  background: var(--warm-white);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+.resume-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.2rem;
+}
+.resume-card {
+  background: var(--warm-white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
+  animation: resumeFadeUp 0.8s ease both;
+}
+.resume-card:nth-child(2) { animation-delay: 0.12s; }
+.resume-card:nth-child(3) { animation-delay: 0.24s; }
+.resume-card h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  color: var(--charcoal);
+}
+.resume-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.resume-list li {
+  color: var(--mid);
+  line-height: 1.7;
+  animation: resumeFadeUp 0.8s ease both;
+}
+.resume-list li:nth-child(1) { animation-delay: 0.05s; }
+.resume-list li:nth-child(2) { animation-delay: 0.1s; }
+.resume-list li:nth-child(3) { animation-delay: 0.15s; }
+.resume-list li:nth-child(4) { animation-delay: 0.2s; }
+.resume-list li:nth-child(5) { animation-delay: 0.25s; }
+.resume-list li:nth-child(6) { animation-delay: 0.3s; }
+.resume-list li:nth-child(7) { animation-delay: 0.35s; }
+.resume-list li:nth-child(8) { animation-delay: 0.4s; }
+.resume-list li strong { color: var(--charcoal); }
+.resume-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+.resume-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(200,145,74,0.12);
+  color: var(--accent-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  animation: resumePulse 2.8s ease-in-out infinite;
+}
+.resume-chip:nth-child(2n) { animation-delay: 0.2s; }
+.resume-chip:nth-child(3n) { animation-delay: 0.4s; }
+@keyframes resumeFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes resumePulse {
+  0%, 100% { transform: translateY(0); box-shadow: none; }
+  50% { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(200,145,74,0.12); }
+}
+.form-group { margin-bottom: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+}
+input, textarea, select {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  transition: border-color 0.2s;
+  outline: none;
+  resize: vertical;
+}
+input:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200,145,74,0.12);
+}
+textarea { min-height: 130px; }
+.form-submit {
+  width: 100%;
+  background: var(--charcoal);
+  color: var(--warm-white);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--accent); transform: translateY(-2px); }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--charcoal);
+  padding: 3rem 0;
+  text-align: center;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--warm-white);
+}
+.footer-logo span { color: var(--accent); }
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.footer-links a {
+  color: rgba(253,250,247,0.5);
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--warm-white); }
+.footer-copy { color: rgba(253,250,247,0.35); font-size: 0.8rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid { grid-template-columns: repeat(2, 1fr); }
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .project-card:first-child { grid-column: span 2; }
+}
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-visual { display: none; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-btns { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-img-col { max-width: 380px; margin: 0 auto; }
+  .services-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+  .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .projects-header { flex-direction: column; align-items: flex-start; }
+  .resume-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .section { padding: 70px 0; }
+  .services-grid { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#hero" class="logo">PAN PALY<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#video">Video</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+    <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+    <li><a href="#video" onclick="closeMenu()">Video</a></li>
+    <li><a href="#testimonials" onclick="closeMenu()">Reviews</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span class="hero-eyebrow-text">Digital Marketing Specialist</span>
+        </div>
+        <h1 class="hero-title">
+          Photographer & Video Editor <em>Digital</em><br>
+          
+        </h1>
+        <p class="hero-desc">
+          We are a boutique team specializing in graphic design, photography, videography, video production, social media management, and page boosting. Our team is dedicated to delivering creative solutions that help businesses thrive and succeed online—all at highly competitive and affordable rates.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary"><span>View Projects</span> <span>→</span></a>
+          <a href="#contact" class="btn-outline">Contact Me</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-num">120+</span>
+            <span class="stat-label">Projects Done</span>
+          </div>
+          <div>
+            <span class="stat-num">85+</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+          <div>
+            <span class="stat-num">4+</span>
+            <span class="stat-label">Years Exp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-ring"></div>
+        <div class="hero-img-wrap">
+          <div class="hero-img-inner">
+            <img class="hero-portrait" src="https://scontent.fpnh22-1.fna.fbcdn.net/v/t39.30808-6/616482844_1896050220995159_4198869608499268524_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE3cy-OZw4etZRjUKCclWW2xmUEJ_-rqefGZQQn_6up56xz8G0ApWC6rE_s6l4f9zKhAEA1jrI_i9xJ7c28Zqgp&_nc_ohc=Nfw-n-tB4-wQ7kNvwGXed9S&_nc_oc=AdqU3Q0A13JfCjRZKXDSo9YgRjDgIcsaMW3o4u5jQAziaM4a1nW-JtR5MZ5d2DB2lhc&_nc_zt=23&_nc_ht=scontent.fpnh22-1.fna&_nc_gid=XiVfvZP_ONBjW3EXuNpOrw&_nc_ss=7b2a8&oh=00_Af5oJ8ZzNOVE0XQhRnQrzgvtihCF2jL0eAV9vb5IOoxjuA&oe=6A158F1F" alt="Pan Paly portrait">
+            
+          </div>
+        </div>
+        <div class="hero-badge hero-badge-1">
+          <div class="badge-icon gold">📈</div>
+          <div>
+            <span class="badge-text-main">340%</span>
+            <span class="badge-text-sub">Avg. ROAS increase</span>
+          </div>
+        </div>
+        <div class="hero-badge hero-badge-2">
+          <div class="badge-icon teal">🎯</div>
+          <div>
+            <span class="badge-text-main">Top Creator</span>
+            <span class="badge-text-sub">TikTok & Meta Ads</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-col">
+        <div class="about-img-frame">
+          <div class="about-img-pattern">
+            <img src="https://i.pinimg.com/736x/37/fc/53/37fc536799e960347a507b3939f71bc7.jpg" alt="About image" class="about-portrait">    
+          </div>
+        </div>
+        <div class="about-img-label">
+          <span class="num">9+</span>
+          <span class="txt">Years of Experience</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-label">About Me</div>
+        <h2>Passionate About Building Digital Legacies</h2>
+        <p>Hello! I'm a digital marketing specialist who lives and breathes social media, branding, and creative content. I believe every brand has a unique story — my job is to make sure the world hears it.</p>
+        <p>From crafting scroll-stopping social media campaigns to designing visual identities that command attention, I bring a strategic and creative mindset to every project. I've helped brands across various industries scale their online presence, increase engagement, and convert audiences into loyal customers.</p>
+        <div class="about-tags">
+          <span class="tag">Social Media Marketing</span>
+          <span class="tag">Branding & Identity</span>
+          <span class="tag">Creative Content</span>
+          <span class="tag">Paid Advertising</span>
+          <span class="tag">Video Editing</span>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">💡</div>
+          <div>
+            <h4>My Mission</h4>
+            <p>To empower brands with powerful digital strategies that create lasting impressions and drive measurable growth online.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="resume" class="section">
+  <div class="container">
+    <div class="section-label">Resume</div>
+    <h2>PAN PALY</h2>
+    <div class="resume-grid">
+      <div class="resume-card">
+        <h3>Educations</h3>
+        <ul class="resume-list">
+          <li><strong>2013-2015:</strong> Study at Hun Sen Mitpap Hight School.</li>
+          <li><strong>2016-2017:</strong> Study Video Editor &amp; Motion Graphic Center (Near CTN TV).</li>
+          <li><strong>2017-2018:</strong> Study Graphic Design &amp; Motion At Insting Institute</li>
+          <li><strong>2023-2023:</strong> Short Course (DOCUMENTARY FILMMAKING) Professional Institution Of Cambodia</li>
+          <li><strong>2024-Present:</strong> Study at BELTEI International University</li>
+        </ul>
+      </div>
+      <div class="resume-card">
+        <h3>Experience</h3>
+        <ul class="resume-list">
+          <li><strong>2017-2019:</strong> Video Editor At Hanumancreations co,ltd.</li>
+          <li><strong>2019-2020:</strong> Cameraman &amp; Video Editor At Maquephotography &amp; Creative Design.</li>
+          <li><strong>2020-Present:</strong> Cameraman &amp; Video Editor At CPL Cambodia Property Limited co, ltd.</li>
+          <li><strong>Other:</strong> Edit Video Interview, Video Documentary, Video Event, Training, Company Profile, Education, Sport TVC, Short Video, Short Video Promote Service, Product, Video estimonail. (Write Short Content, Promote Product, Boost Page, Boost TikTok)</li>
+        </ul>
+      </div>
+      <div class="resume-card">
+        <h3>Pro Skills</h3>
+        <div class="resume-chips">
+          <span class="resume-chip">PHOTOSHOP</span>
+          <span class="resume-chip">ILLUSTRATOR</span>
+          <span class="resume-chip">ADOBE PREMIERE PRO</span>
+          <span class="resume-chip">ADOBE AFTER EFFECTS</span>
+          <span class="resume-chip">CAPCUT</span>
+          <span class="resume-chip">WRITE CONTENT</span>
+          <span class="resume-chip">BOOST PAGE &amp; TIKTOK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== SERVICES ===== -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="services-intro">
+      <div>
+        <div class="section-label">What I Offer</div>
+        <h2>Services That Drive Results</h2>
+      </div>
+      <p>From strategy to execution, I provide end-to-end digital marketing solutions tailored to your brand's unique goals and audience.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <div class="service-icon">📱</div>
+        <h3>Social Media Management</h3>
+        <p>Full-service management of your social media presence — from content calendars to community engagement that builds loyal audiences.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <div class="service-icon">✍️</div>
+        <h3>Content Creation</h3>
+        <p>Original, platform-optimized content — graphics, captions, stories, reels — crafted to captivate and convert your target audience.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <div class="service-icon">🎯</div>
+        <h3>Facebook & TikTok Ads</h3>
+        <p>Data-driven ad campaigns with creative that stops the scroll. Maximize your ROI with precision targeting and compelling ad creatives.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <div class="service-icon">🎨</div>
+        <h3>Branding Design</h3>
+        <p>Build a visual identity that speaks volumes — logos, color palettes, typography, and brand guidelines that make you unforgettable.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">05</span>
+        <div class="service-icon">🎬</div>
+        <h3>Video Editing</h3>
+        <p>Professional video editing for reels, ads, promos, and branded content. Cinematic storytelling that elevates your brand's image.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">06</span>
+        <div class="service-icon">📸</div>
+        <h3>Photography & Videography</h3>
+        <p>High-quality visual production — product shoots, lifestyle photography, brand films — everything your brand needs to shine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="projects-header">
+      <div>
+        <div class="section-label">Portfolio</div>
+        <h2>Selected Projects</h2>
+      </div>
+      <a href="#contact" class="btn-outline">Start a Project →</a>
+    </div>
+    <div class="projects-grid">   
+      <div class="project-card">
+        <div class="project-bg proj-1">
+          <div class="project-deco-2"></div>
+          <div class="project-icon">🛍️</div>
+          <img src="img/img_fb_ads.jpeg" width="100%" alt="Project 1" class="project-thumb">
+        </div>
+        <div class="project-tag">Facebook + Ads</div>
+        <div class="project-overlay">
+          <h3>Facebook & Ads Management</h3>
+          <p>Managing Facebook pages and running ads to grow reach, engagement, and brand awareness.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-bg proj-2">
+          <div class="project-deco"></div>
+          <div class="project-deco-2"></div>
+          <div class="project-icon">🍃</div>
+        </div>
+        <div class="project-tag">Graph Desgin</div>
+        <div class="project-overlay">
+          <a href="https://drive.google.com/drive/folders/1AkCTsjmNsejLSjlsfv1tqIs6vjd0z68M?usp=sharing" target="_blank" rel="noopener noreferrer"><h3>Design work is creating visual content</h3></a>
+          <p>such as logos, posters, social media posts, and graphics to communicate ideas creatively.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-bg proj-3">
+          <div class="project-deco"></div>
+          <div class="project-deco-2"></div>
+          <div class="project-icon">🎵</div>
+        </div>
+        <div class="project-tag">Facebook Content Creator Campaign</div>
+        <div class="project-overlay"> 
+          <a href="https://drive.google.com/drive/folders/1tJqPMZQvmJcXyBnQu3mKyjteH2BBZjgj?usp=sharing" target="_blank" rel="noopener noreferrer"><h3>Creative content scripts and social media</h3></a>
+          <p>strategy that boosted engagement and reached 2.4M views on Facebook page videos.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-bg proj-4">
+          <div class="project-deco"></div>
+          <div class="project-deco-2"></div>
+          <div class="project-icon">🏨</div>
+        </div>
+        <div class="project-tag">My Controlled Facebook Pages</div>
+        <div class="project-overlay">
+          <a href="https://drive.google.com/drive/folders/1L8y77DLhZv5nrqNIQAV1T7BAHRXyz6f4?usp=sharing" target="_blank" rel="noopener noreferrer"><h3>My Controlled Facebook Pages</h3></a>
+          <p>Managing and creating content strategies for multiple Facebook pages focused on branding, engagement, and audience growth<p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-bg proj-5">
+          <div class="project-deco"></div>
+          <div class="project-deco-2"></div>
+          <div class="project-icon">☕</div>
+        </div>
+        <div class="project-tag">Photography + Branding</div>
+        <div class="project-overlay">
+          <a href="https://drive.google.com/drive/folders/1wB_jh-bCHrrnQd3XZQpsm-CcdIQQQm2N?usp=drive_link" target="_blank" rel="noopener noreferrer"><h3>Capturing creative and high-quality</h3></a>
+          <p>photos that tell stories through composition, lighting, and visual style.<p> 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-label">Expertise</div>
+    <h2>My Core Skills</h2>
+    <div class="skills-layout">
+      <div class="skills-desc">
+        <p>Every skill I bring to the table is backed by real-world experience, measurable results, and a constant desire to push creative boundaries. I stay ahead of algorithm changes, platform trends, and evolving consumer behavior so your brand always stays relevant.</p>
+        <div class="skill-cards-row">
+          <span class="skill-card-tag">Creative Thinking</span>
+          <span class="skill-card-tag">Communication</span>
+          <span class="skill-card-tag">Analytics</span>
+          <span class="skill-card-tag">Storytelling</span>
+          <span class="skill-card-tag">Brand Strategy</span>
+          <span class="skill-card-tag">Trend Research</span>
+        </div>
+        <a href="#contact" class="btn-primary" style="margin-top:2.5rem; display:inline-flex;"><span>Work With Me</span> <span>→</span></a>
+      </div>
+      <div class="skills-list">
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Social Media Marketing</span>
+            <span class="skill-pct">95%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 95%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Content Strategy</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 90%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Facebook Ads</span>
+            <span class="skill-pct">95%%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 95%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">TikTok Marketing</span>
+            <span class="skill-pct">92%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 92%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Graphic Design</span>
+            <span class="skill-pct">82%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 82%;"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Video Editing</span>
+            <span class="skill-pct">87%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" style="--w: 87%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO EDITING ===== -->
+<section id="video" class="section">
+  <div class="container">
+    <div class="section-label">Video Work</div>
+    <h2>Video Editing Showcase</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb vt-1">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">CPL Cambodia Properties Limited</span>
+        </div>
+        <div class="video-info">
+          <h4><a href="https://www.facebook.com/CambodiaPropertiesLimited/videos/1259413649528554" target="_blank" rel="noopener noreferrer"> Cambodia Properties Limited</a></h4>
+          <p><a href="https://www.facebook.com/CambodiaPropertiesLimited/videos/1259413649528554" target="_blank" rel="noopener noreferrer">A 60-second cinematic brand film for the launch campaign of Cambodia Properties Limited.</a></p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb vt-2">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">Tik Tok</span>
+        </div>
+        <div class="video-info">
+           <h4><a href="https://www.tiktok.com/@cambodiarealestateii/video/7631879809475431701?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">TikTok Viral Reel Series</a></h4>    
+           <p><a href="https://www.tiktok.com/@cambodiarealestateii/video/7631879809475431701?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">Social work videos educate people and promote positive change in society.</a></p>   
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb vt-3">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">Hospital production video 2020</span>
+        </div>
+        <div class="video-info">
+          <h4><a href="https://drive.google.com/drive/folders/1SvD3zs4G9rMR7PLeIyaaEVzDqjRaJEWf?usp=sharing" target="_blank" rel="noopener noreferrer">Freelance Video Work</a></h4>    
+           <p><a href="https://drive.google.com/drive/folders/1SvD3zs4G9rMR7PLeIyaaEVzDqjRaJEWf?usp=sharing" target="_blank" rel="noopener noreferrer">Hospital production video 2020 presenting a glimpse of healthcare services, facilities, and professional medical staff in action. Created for awareness and promotional purposes.</a></p>  
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb vt-4">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">Realestateii</span>
+        </div>
+        <div class="video-info">
+           <h4><a href="https://drive.google.com/drive/folders/1voAUf2Sd8Z_1l8-GMrFMzc6NteqzYKYj?usp=sharing" target="_blank" rel="noopener noreferrer">Freelance Video Work</a></h4>    
+           <p><a href="https://drive.google.com/drive/folders/1voAUf2Sd8Z_1l8-GMrFMzc6NteqzYKYj?usp=sharing" target="_blank" rel="noopener noreferrer">A high-quality real estate video showcasing a modern property with elegant design, spacious living areas, and a comfortable environment. Perfect for property marketing and promotion.</a></p>        
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb vt-5">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">Massage service video</span>
+        </div>
+        <div class="video-info">
+          <h4><a href="https://drive.google.com/drive/folders/1bRNo1EUZ-I9DuXsSwrNA7rE5_7oTTskZ?usp=sharing" target="_blank" rel="noopener noreferrer">Freelance Video Work</a></h4>    
+           <p><a href="https://drive.google.com/drive/folders/1bRNo1EUZ-I9DuXsSwrNA7rE5_7oTTskZ?usp=sharing" target="_blank" rel="noopener noreferrer">This video highlights a massage service center, featuring relaxing treatments, calm atmosphere, and professional therapists. It is designed to showcase wellness services and customer experience.</a></p>      
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb vt-6">
+          <div class="video-deco"></div>
+          <div class="video-play">▶</div>
+          <span class="video-label">Content Creator</span>
+        </div>
+        <div class="video-info">
+          <h4><a href="https://drive.google.com/drive/folders/1lPyuqZ5iqo18tGtzVJjBYp5fas3u8Jy-?usp=sharing" target="_blank" rel="noopener noreferrer">Freelance Video Work</a></h4>    
+           <p><a href="https://drive.google.com/drive/folders/1lPyuqZ5iqo18tGtzVJjBYp5fas3u8Jy-?usp=sharing" target="_blank" rel="noopener noreferrer">Creating engaging visual content for property marketing, including video production, photography, and digital promotion to showcase real estate listings.</a></p>   
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="section-label">Client Reviews</div>
+    <h2>What Clients Say</h2>
+    <div class="testi-grid">
+      <div class="testi-card featured">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p>Nova's team transformed our social media from a ghost town to a buzzing community. Their creative strategy doubled our online sales in just three months. Absolute game-changer.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar av-1">👩</div>
+          <div>
+            <span class="testi-name">Sarah K.</span>
+            <span class="testi-role">Founder, Maison Boutique</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p>The TikTok ad campaign they ran for us was phenomenal. We sold out our entire stock within 72 hours of launch. The creative they produced was exactly on-brand and incredibly effective.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar av-2">👨</div>
+          <div>
+            <span class="testi-name">Marcus T.</span>
+            <span class="testi-role">CEO, Verde Lifestyle</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p>Working with Nova was the best decision we made for our rebrand. The branding design is stunning and the photography content they created is being used across all our channels.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar av-3">👩</div>
+          <div>
+            <span class="testi-name">Priya M.</span>
+            <span class="testi-role">Marketing Director, Artisan Co.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h2>Let's Build Something Great Together</h2>
+        <p>Have a project in mind? I'd love to hear about it. Send a message and let's talk about how we can help your brand grow online.</p>
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Location</strong>
+            <span>04, Street R3, VIP, Phnom Penh.</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span>+855 096 200 10 86</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>palypan.168@gmail.com</span>
+          </div>
+        </div>
+        <div class="social-links">   
+          <div class="social-btn" title="Instagram">📸</div>
+          <a class="social-btn" title="Facebook" href="https://www.facebook.com/pan.paly.3" target="_blank" rel="noopener noreferrer">📘</a>
+          <a class="social-btn" title="Telegram" href="https://t.me/pan_paly" target="_blank" rel="noopener noreferrer">✈️</a>
+          <div class="social-btn" title="LinkedIn">💼</div>
+          <div class="social-btn" title="YouTube">▶️</div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Alex Johnson">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="alex@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="I'd like to discuss a project...">
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service">
+            <option value="">Select a service...</option>
+            <option>Social Media Management</option>
+            <option>Content Creation</option>
+            <option>Facebook & TikTok Ads</option>
+            <option>Branding Design</option>
+            <option>Video Editing</option>
+            <option>Photography & Videography</option>
+            <option>Full Package</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell me a bit about your brand and what you're looking to achieve..."></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">PAN PALY<span>.</span></div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 PAN PALY Creative. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu toggle
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Sticky nav shadow
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 20
+    ? '0 4px 30px rgba(26,24,20,0.1)'
+    : 'none';
+});
+</script>
+</body>
+</html>
